@@ -33,7 +33,7 @@ public class driveTrain{
     public void setPower (double x, double y, double turn) {
         calculatePower(x, y, turn); //update wheel powers
         //set wheel powers
-        lf.setPower(lbPow); // Left Front
+        lf.setPower(lfPow); // Left Front
         rf.setPower(rfPow); // Right Front
         lb.setPower(lbPow); // Left Back
         rb.setPower(rbPow); // Right Back

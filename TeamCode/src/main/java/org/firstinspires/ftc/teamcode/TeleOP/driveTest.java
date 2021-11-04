@@ -20,8 +20,8 @@ public class driveTest extends LinearOpMode {
         DcMotor rightBack = hardwareMap.get( DcMotor.class , "rb" );
         
         // Reverse the right side motors
-        rightFront.setDirection( DcMotorSimple.Direction.REVERSE);
-        rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftFront.setDirection( DcMotorSimple.Direction.REVERSE);
+        leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
         
         //create driveTrain
         driveTrain drive = new driveTrain(leftFront, rightFront, leftBack, rightBack);

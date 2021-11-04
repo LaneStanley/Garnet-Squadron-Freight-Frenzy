@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
@@ -44,6 +45,9 @@ public class AngleThing extends LinearOpMode {
         //initialize IMU
         imu = hardwareMap.get(BNO055IMU.class, "imu");
         imu.initialize(parameters);
+        
+        //time
+        ElapsedTime runtime = new ElapsedTime();
     
         //Drive
         DcMotor leftFront = hardwareMap.get( DcMotor.class , "lf" );
@@ -52,8 +56,8 @@ public class AngleThing extends LinearOpMode {
         DcMotor rightBack = hardwareMap.get( DcMotor.class , "rb" );
     
         // Reverse the right side motors
-        rightFront.setDirection( DcMotorSimple.Direction.REVERSE );
-        rightBack.setDirection( DcMotorSimple.Direction.REVERSE );
+        leftFront.setDirection( DcMotorSimple.Direction.REVERSE);
+        leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
     
         //create driveTrain
         driveTrain drive = new driveTrain( leftFront , rightFront , leftBack , rightBack );
@@ -63,10 +67,15 @@ public class AngleThing extends LinearOpMode {
         // Start the logging of measured acceleration
         imu.startAccelerationIntegration(new Position(), new Velocity(), 10);
         
+        boolean bumperPressed = false;
         boolean triggerPressed = false;
         
         // 0.0096
-        double pk = 0.001;
+        double kp = 0.12;
+        double kd = 0.0225;
+        double prevError = 0;
+        long tPrev = 0;
+        double sencitivity = 0.00001;
         
         if (isStopRequested()) return; //stop execution if stopping is requested
         double target = 0;
@@ -94,54 +103,78 @@ public class AngleThing extends LinearOpMode {
             
             //0 to 180 then -180 to 0
             double distance = target - theta;
-            double error = Math.abs(distance);
+            double error = distance < 0 ? (distance + 360) : distance;
+            //double error = distance; //Math.abs(distance);
             
-            boolean LTrigger = gamepad1.left_bumper;
-            boolean RTrigger = gamepad1.right_bumper;
+            long tCrt = runtime.nanoseconds();
+            double derivative = (error - prevError) / (tCrt - tPrev);
+                    
+            prevError = error;
+            tPrev = tCrt; 
             
+            boolean LBumper = gamepad1.left_bumper;
+            boolean RBumper = gamepad1.right_bumper;
             
+            double output = error*kp + derivative*kd;
+            
+            if (LBumper) {
+                if (!bumperPressed) {
+                    kp -= sencitivity;
+                }
+                bumperPressed = true;
+            }
+            else if (RBumper) {
+                if (!bumperPressed) {
+                    kp += sencitivity;
+                }
+                bumperPressed = true;
+            }
+            else {
+                bumperPressed = false;
+            }
+            
+            boolean LTrigger = true ? (gamepad1.left_trigger > 0): false;
+            boolean RTrigger = true ? (gamepad1.right_trigger > 0): false ;
+    
             if (LTrigger) {
                 if (!triggerPressed) {
-                    pk -= 0.0001;
+                      kd -= sencitivity;
                 }
-                
+        
                 triggerPressed = true;
             }
-            else {
-                triggerPressed = false;
-            }
-    
-            if (RTrigger) {
+            else if (RTrigger) {
                 if (!triggerPressed) {
-                    pk += 0.0001;
+                    kd += sencitivity;
                 }
-    
+        
                 triggerPressed = true;
             }
             else {
                 triggerPressed = false;
             }
-            
-            //double distanceLeft = 360 - distanceRight;
             
             if (Math.abs(distance) > 180) {
                 if(distance > 0) {
-                    drive.setPower( 0 , 0 , -(error*pk));
+                    drive.setPower( 0 , 0 , (output));
                 }
                 else {
-                    drive.setPower( 0 , 0 , (error*pk) );
+                    drive.setPower( 0 , 0 , -(output) );
                 }
             }
             else {
                 if ( distance > 0 ) {
-                    drive.setPower( 0 , 0 , (error*pk) );
+                    drive.setPower( 0 , 0 , -(output) );
                 }
                 else {
-                    drive.setPower( 0 , 0 , -(error*pk) );
+                    drive.setPower( 0 , 0 , (output) );
                 }
             }
+            
+            
             telemetry.addData("theta", theta);
-            telemetry.addData("pk", pk);
+            telemetry.addData("kp", kp);
+            telemetry.addData("kd", kd);
             telemetry.addData( "target", target );
             telemetry.update();
             
