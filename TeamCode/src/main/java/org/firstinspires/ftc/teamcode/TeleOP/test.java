@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 //import com.qualcomm.robotcore.util.ElapsedTime;
 
 
-@TeleOp( name = "TeleOp", group = "Linear Opmode" )
+@TeleOp( name = "nah", group = "Linear Opmode" )
 @Disabled
 public class test extends LinearOpMode {
     
