@@ -20,15 +20,22 @@ public class driveTrain{
         this.lb = lb;
         this.rb = rb;
     }
+
+    public driveTrain(RobotBase robot){
+        robot.leftFront  = lf;
+        robot.rightFront = rf;
+        robot.leftBack   = lb;
+        robot.rightBack  = rb;
+    }
     
     public void calculatePower (double x, double y, double turn) {
         //calculate the largest power to preserve ratios after being clipped
         double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(turn), 1);
         //calculate individual wheel power
-        lfPow = (y + x + turn) / denominator; //Left Front
-        rfPow = (y - x - turn) / denominator; //Right Front
-        lbPow = (y - x + turn) / denominator; //Left Rear
-        rbPow = (y + x - turn) / denominator; //Right Rear
+        lfPow = (y - x + turn) / denominator; //Left Front
+        rfPow = (y + x - turn) / denominator; //Right Front
+        lbPow = (y + x + turn) / denominator; //Left Rear
+        rbPow = (y - x - turn) / denominator; //Right Rear
     }
     public void setPower (double x, double y, double turn) {
         calculatePower(x, y, turn); //update wheel powers
