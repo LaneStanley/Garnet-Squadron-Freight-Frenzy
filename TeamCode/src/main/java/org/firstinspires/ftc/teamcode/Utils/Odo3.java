@@ -1,13 +1,10 @@
 package org.firstinspires.ftc.teamcode.Utils;
 
-import android.util.Pair;
-
-import androidx.annotation.NonNull;
-
 public class Odo3 {
     // F (configurable)
     private double w;               // distance between wheels / wheel span
-    private double iTheta = 0.0;      // initial angle
+    private double iTheta = 0.0;    // initial angle
+    private double offset = 0.0;    // preferably 0
 
     // F
     private double cX = 0.0;        // current X, from the beginning of runtime
@@ -20,7 +17,7 @@ public class Odo3 {
     private double rL, rR, rM;      // radius from center of rotation, rM derives from rL or rR
     private double hyp;             // assumed distance traveled from frame n to n+1
 
-    private double magDS;
+    private double magDS;           // magnitude of the normal vector of middle wheel
     private double thN;
 
     private double wX;
@@ -30,9 +27,19 @@ public class Odo3 {
         w = wheelSpan;
     }
 
-    public void ConfigureRobot(Pair<String, Double>... args) { // must use pair
-        for (Pair<String, Double> p : args) {
-            //this.p[0]
+    public void ConfigureRobot(String varName, double value) { // must use pair
+        switch (varName) {
+            case ("iTheta"):
+                iTheta = value;
+                break;
+            case ("w"):
+                w = value;
+                break;
+            case ("offset"):
+                offset = value;
+                break;
+            default:
+                return;
         }
 
         cTheta = iTheta;
@@ -45,6 +52,16 @@ public class Odo3 {
 
     public double getAngle() {
         return cTheta;
+    }
+
+    // +
+    public void setCoordinates(double x, double y) {
+        cX = x;
+        cY = y;
+    }
+
+    public void setAngle(double theta) {
+        cTheta = theta;
     }
 
     // ()
@@ -69,7 +86,24 @@ public class Odo3 {
 
         cX = x + newX;
         cY = y + newY;
-        cTheta = cTheta + thRot;
+        cTheta = newTh;
+    }
+
+    public void clean() {
+        w = 0.0;
+        iTheta = 0.0;
+        offset = 0.0;
+        cX = 0.0;
+        cY = 0.0;
+        cTheta = 0.0;
+        dL = dR = dM = 0.0;
+        thRot = 0.0;
+        rL = rR = rM = 0.0;
+        hyp = 0.0;
+        magDS = 0.0;
+        thN = 0.0;
+        wX = 0.0;
+        wY = 0.0;
     }
 
 }
