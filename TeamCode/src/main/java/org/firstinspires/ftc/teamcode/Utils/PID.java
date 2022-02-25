@@ -4,7 +4,7 @@ import  com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class PID {
-    private double kp = 0;
+    public double kp = 0;
     private double ki = 0;
     private double kd = 0;
     

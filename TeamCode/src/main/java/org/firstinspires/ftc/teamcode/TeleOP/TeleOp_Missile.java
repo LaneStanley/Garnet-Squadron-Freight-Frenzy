@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.TeleOP;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.Utils.PID;
 import org.firstinspires.ftc.teamcode.Utils.RobotBase;
 
 @TeleOp(name="TeleOp_Missile", group="Comp")
@@ -27,8 +28,8 @@ public class TeleOp_Missile extends LinearOpMode {
 
             robot.drive.setPower(x1, y1, turn);
 
-            double x2 = -gamepad2.left_stick_y;
-            double y2 = gamepad2.right_stick_y;
+            double armAngle = -gamepad2.left_stick_y;
+            double armExtend = gamepad2.right_stick_y;
 
             boolean uDpad = gamepad2.dpad_up;
             boolean dDpad = gamepad2.dpad_down;
@@ -68,7 +69,7 @@ public class TeleOp_Missile extends LinearOpMode {
                 }
                 scaleAdjusted = true;
             }
-            robot.arm.setArmPower(x2, y2);
+            robot.arm.setArmPower(armAngle, armExtend);
 
             if (xBtn) {
                 robot.arm.setClamp(1);
