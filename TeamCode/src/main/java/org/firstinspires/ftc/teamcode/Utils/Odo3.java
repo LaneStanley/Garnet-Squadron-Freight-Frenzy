@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.Utils;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+
 public class Odo3 {
     // F (configurable)
     private double w;               // distance between wheels / wheel span
@@ -27,7 +29,7 @@ public class Odo3 {
         w = wheelSpan;
     }
 
-    public void ConfigureRobot(String varName, double value) { // must use pair
+    public void ConfigureRobot(String varName, double value) {
         switch (varName) {
             case ("iTheta"):
                 iTheta = value;

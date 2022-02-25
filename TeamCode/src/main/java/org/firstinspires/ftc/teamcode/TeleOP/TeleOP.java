@@ -33,9 +33,9 @@ public class TeleOP extends LinearOpMode {
        //----------INITIALIZE Robot---------------------------
 
         //constants
-        double duckPower = 0.5;
-        double armPos = 0.45;
-        double clampOpen = 0.6;
+        double duckPower = 0.0; // 0.5
+        double armPos = 0.0; // 0.45
+        double clampOpen = 0.0; // 0.6;
         double clampClosed = 0.0;
         double sensitivity = 0.001;
         double driveSensitivity = 1;

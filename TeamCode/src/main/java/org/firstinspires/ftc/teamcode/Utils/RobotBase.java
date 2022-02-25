@@ -14,12 +14,13 @@ public class RobotBase {
     public DcMotor rightBack    = null;
 
     public Servo clamp          = null;
-    public DcMotor arm          = null;
-    public DcMotor extenderArm  = null;
+    public DcMotor armAngle     = null;
+    public DcMotor armExtender  = null;
 
     public DcMotor duckSpinner  = null;
 
     public driveTrain drive     = null;
+    public Arm arm              = null;
 
     /* local OpMode members. */
     HardwareMap hwMap           = null;
@@ -48,14 +49,15 @@ public class RobotBase {
 
         // Arm/Intake
         //clamp       = hwMap.get(Servo.class, "clmp");
-        arm         = hwMap.get(DcMotor.class,"arm");
-        extenderArm = hwMap.get(DcMotor.class, "extenderArm");
+        armAngle        = hwMap.get(DcMotor.class,"armAngle");
+        armExtender = hwMap.get(DcMotor.class, "armExtender");
 
         //Duck Spinner
-        duckSpinner = hwMap.get( DcMotor.class, "ds");
+        //duckSpinner = hwMap.get( DcMotor.class, "ds");
 
         //Init drivetrain
         drive = new driveTrain(leftFront, rightFront, leftBack, rightBack);
+        arm = new Arm(armAngle, armExtender, 0.5);
     }
 
 
