@@ -211,6 +211,7 @@ public class webcamTest extends LinearOpMode
             /*
              * Draw a simple box around the middle 1/2 of the entire frame
              */
+
             Imgproc.rectangle(
                     input,
                     new Point(
