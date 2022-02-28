@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import org.firstinspires.ftc.teamcode.Utils.driveTrain;
 
 
-
+@Disabled
 @TeleOp(name="driveTest", group="Testing")
 public class driveTest extends LinearOpMode {
     

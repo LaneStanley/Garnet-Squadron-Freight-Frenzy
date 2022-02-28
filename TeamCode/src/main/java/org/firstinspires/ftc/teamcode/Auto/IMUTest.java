@@ -19,6 +19,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import org.firstinspires.ftc.teamcode.Utils.driveTrain;
 import java.util.Locale;
 
+@Disabled
 @Autonomous(name = "IMU Test", group = "Testing")
 //@Disabled                            // Comment this out to add to the opmode list
 public class IMUTest extends LinearOpMode{

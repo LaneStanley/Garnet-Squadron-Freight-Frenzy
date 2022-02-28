@@ -1,12 +1,14 @@
 package org.firstinspires.ftc.teamcode.Auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Utils.RobotBase;
 import org.firstinspires.ftc.teamcode.Utils.driveTrain;
 
+@Disabled
 @Autonomous(name="Forward", group="Auto")
 public class forward extends LinearOpMode {
 

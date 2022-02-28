@@ -21,6 +21,7 @@
 
 package org.firstinspires.ftc.teamcode.TeleOP;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -35,6 +36,7 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvPipeline;
 import org.openftc.easyopencv.OpenCvWebcam;
 
+@Disabled
 @TeleOp
 public class webcamTest extends LinearOpMode
 {
@@ -221,6 +223,10 @@ public class webcamTest extends LinearOpMode
                             input.cols()*(3f/4f),
                             input.rows()*(3f/4f)),
                     new Scalar(0, 255, 0), 4);
+
+            Imgproc.cvtColor(input, input,7);
+
+
 
             /**
              * NOTE: to see how to get data from your pipeline to your OpMode as well as how

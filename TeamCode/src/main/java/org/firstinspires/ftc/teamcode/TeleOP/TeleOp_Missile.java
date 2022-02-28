@@ -72,9 +72,9 @@ public class TeleOp_Missile extends LinearOpMode {
             robot.arm.setArmPower(armAngle, armExtend);
 
             if (xBtn) {
-                robot.arm.setClamp(1);
+                robot.arm.setClamp(1.0);
             } else if (aBtn) {
-                robot.arm.setClamp(0);
+                robot.arm.setClamp(0.0);
             }
 
             /*

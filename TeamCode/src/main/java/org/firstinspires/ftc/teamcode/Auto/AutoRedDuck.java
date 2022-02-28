@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.Utils.RobotBase;
 import org.firstinspires.ftc.teamcode.Utils.driveTrain;
 
 
@@ -16,10 +17,13 @@ import org.firstinspires.ftc.teamcode.Utils.driveTrain;
 @Autonomous(name = "AutoRedDuck", group = "Auto")
 public class AutoRedDuck extends LinearOpMode {
 
+    RobotBase robot = new RobotBase();
 
     @Override
     public void runOpMode() {
         //----------INITIALIZE Robot---------------------------
+
+        robot.init(hardwareMap);
 
         //constants
         double duckPower = 1.0;
@@ -28,25 +32,8 @@ public class AutoRedDuck extends LinearOpMode {
         double clampClosed = 0.0;
         double timeStart = 0.0;
 
-        //Drive train:
-        DcMotor leftFront = hardwareMap.get( DcMotor.class , "lf" );
-        DcMotor rightFront = hardwareMap.get( DcMotor.class , "rf" );
-        DcMotor leftBack = hardwareMap.get( DcMotor.class , "lb" );
-        DcMotor rightBack = hardwareMap.get( DcMotor.class , "rb" );
 
-        // Reverse the right side motors
-        leftFront.setDirection( DcMotorSimple.Direction.REVERSE);
-        leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        //create driveTrain
-        driveTrain drive = new driveTrain(leftFront, rightFront, leftBack, rightBack);
-
-        // Arm/Intake
-        Servo clamp = hardwareMap.get(Servo.class, "clmp");
-        CRServo arm = hardwareMap.get(CRServo.class, "arm");
-
-        //Duck Spinner
-        DcMotor duckSpinner = hardwareMap.get( DcMotor.class, "ds");
 
         //time thing a thing
         ElapsedTime getTime = new ElapsedTime();
@@ -57,22 +44,22 @@ public class AutoRedDuck extends LinearOpMode {
 
         //yo drive forward you bum
         timeStart = getTime.seconds();
-        while(opModeIsActive() && getTime.seconds() - timeStart > 3) {
-            drive.setPower(0, 1.0, 0);
+        while(opModeIsActive() && getTime.seconds() - timeStart < 3) {
+            robot.drive.setPower(0, 1.0, 0);
         }
-        drive.setPower(0, 0, 0);
+        robot.drive.setPower(0, 0, 0);
         //yo spin that thing a thing with the duck thing for the duck you bum
         timeStart = getTime.seconds();
-        while(opModeIsActive() && getTime.seconds() - timeStart > 3) {
-            duckSpinner.setPower(duckPower);
+        while(opModeIsActive() && getTime.seconds() - timeStart < 3) {
+            robot.duckSpinner.setPower(duckPower);
         }
-        duckSpinner.setPower(0);
+        robot.duckSpinner.setPower(0);
         //yo crab that bitch over!!!!!!!!!!!
         timeStart = getTime.seconds();
-        while(opModeIsActive() && getTime.seconds() - timeStart > 3) {
-            drive.setPower(1.0,0,0);
+        while(opModeIsActive() && getTime.seconds() - timeStart < 3) {
+            robot.drive.setPower(1.0,0,0);
         }
-        drive.setPower(0,0,0);
+        robot.drive.setPower(0,0,0);
 
 
     }

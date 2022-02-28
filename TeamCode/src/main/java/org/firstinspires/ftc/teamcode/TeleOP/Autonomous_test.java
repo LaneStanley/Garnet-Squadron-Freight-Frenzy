@@ -14,6 +14,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 import org.firstinspires.ftc.teamcode.Utils.PID;
 import org.firstinspires.ftc.teamcode.Utils.driveTrain;
 
+@Disabled
 @TeleOp(name="Autonomous_test", group="Testing")
 public class Autonomous_test extends LinearOpMode{
 

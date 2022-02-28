@@ -6,28 +6,26 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-public class RobotBase {
+public class BobBase {
     /* Public OpMode members. */
-    public DcMotor leftFront    = null;
-    public DcMotor rightFront   = null;
-    public DcMotor leftBack     = null;
-    public DcMotor rightBack    = null;
-
-    public Servo clamp          = null;
-    public DcMotor armAngle     = null;
-    public DcMotor armExtender  = null;
-
-    public DcMotor duckSpinner  = null;
-
     public driveTrain drive     = null;
-    public Arm arm              = null;
+
+    public DcMotor leftFront = null;
+    public DcMotor rightFront = null;
+    public DcMotor leftBack = null;
+    public DcMotor rightBack = null;
+
+    public Servo clamp = null;
+    public CRServo arm = null;
+
+    public DcMotor duckSpinner = null;
 
     /* local OpMode members. */
     HardwareMap hwMap           = null;
 
 
     /* Constructor */
-    public RobotBase() {
+    public BobBase() {
 
     }
 
@@ -44,22 +42,20 @@ public class RobotBase {
 
 
         // Reverse the right side motors
-        leftBack.setDirection( DcMotorSimple.Direction.REVERSE);
-        rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
         leftFront.setDirection( DcMotorSimple.Direction.REVERSE);
-        //leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
 
         // Arm/Intake
-        //clamp       = hwMap.get(Servo.class, "clmp");
-        armAngle        = hwMap.get(DcMotor.class,"armAngle");
-        armExtender = hwMap.get(DcMotor.class, "armExtender");
+        clamp = hwMap.get(Servo.class, "clmp");
+
+        arm = hwMap.get(CRServo.class,"arm");
 
         //Duck Spinner
-        //duckSpinner = hwMap.get( DcMotor.class, "ds");
+        duckSpinner = hwMap.get( DcMotor.class, "ds");
 
         //Init drivetrain
         drive = new driveTrain(leftFront, rightFront, leftBack, rightBack);
-        arm = new Arm(armAngle, armExtender, 0.5);
+
     }
 
 

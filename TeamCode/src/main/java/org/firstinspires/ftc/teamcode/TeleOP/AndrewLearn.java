@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.teamcode.Utils.driveTrain;
 
+@Disabled
 @TeleOp(name="AndrewLearn", group="Testing")
 public class AndrewLearn extends LinearOpMode
 {

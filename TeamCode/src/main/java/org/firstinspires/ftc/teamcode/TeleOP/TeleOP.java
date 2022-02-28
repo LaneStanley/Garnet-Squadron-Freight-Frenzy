@@ -33,11 +33,11 @@ public class TeleOP extends LinearOpMode {
        //----------INITIALIZE Robot---------------------------
 
         //constants
-        double duckPower = 0.0; // 0.5
-        double armPos = 0.8; // 0.45
-        double clampOpen = 0.0; // 0.6;
-        double clampClosed = 0.0;
-        double sensitivity = 0.001;
+        double duckPower = 0.5;
+        double armPos = -0.627; // 0.45
+        double clampOpen = 1.0;
+        double clampClosed = .2;
+        double sensitivity = 0.0015;
         double driveSensitivity = 1;
 
         //Drive train:
@@ -98,7 +98,6 @@ public class TeleOP extends LinearOpMode {
             //duck spinner
             if (duckSwitchForward) {
                 duckSpinner.setPower(duckPower);
-                telemetry.addData("yuh", 0);
             }
             else if (duckSwitchBackward) {
                 duckSpinner.setPower(-duckPower);
@@ -116,7 +115,8 @@ public class TeleOP extends LinearOpMode {
                 clamp.setPosition(clampOpen);
             }
 
-            armPos += gamepad2.left_stick_y * sensitivity;
+            armPos += -gamepad2.left_stick_y * sensitivity;
+            armPos = Math.max(-0.77, armPos);
              double amt = 0;
             //arm
             /*
