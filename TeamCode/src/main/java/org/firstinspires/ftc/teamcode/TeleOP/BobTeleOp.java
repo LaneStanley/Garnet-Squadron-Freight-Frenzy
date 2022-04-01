@@ -3,12 +3,12 @@ package org.firstinspires.ftc.teamcode.TeleOP;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.Utils.TimBase;
+import org.firstinspires.ftc.teamcode.Utils.BobBase;
 
-@TeleOp(name="TeleOp_Missile", group="Comp")
-public class TeleOp_Missile extends LinearOpMode {
+@TeleOp(name="BobTeleOp", group="Comp")
+public class BobTeleOp extends LinearOpMode {
 
-    TimBase robot = new TimBase();
+    BobBase robot = new BobBase();
 
     @Override
     public void runOpMode() {
@@ -39,42 +39,6 @@ public class TeleOp_Missile extends LinearOpMode {
             boolean xBtn = gamepad2.x;
             boolean aBtn = gamepad2.a;
 
-            if (!uDpad && !dDpad && !lDpad && !rDpad) {
-                scaleAdjusted = false;
-            }
-
-            // arm adjust
-            if (uDpad) {
-                if (!scaleAdjusted) {
-                    robot.arm.adjustArmScale(0.1);
-                }
-                scaleAdjusted = true;
-            } else if (dDpad) {
-                if (!scaleAdjusted) {
-                    robot.arm.adjustArmScale(-0.1);
-                }
-                scaleAdjusted = true;
-            }
-
-            // clamp adjust
-            if (rDpad) {
-                if (!scaleAdjusted) {
-                    robot.arm.adjustArmScale(0.1);
-                }
-                scaleAdjusted = true;
-            } else if (lDpad) {
-                if (!scaleAdjusted) {
-                    robot.arm.adjustArmScale(-0.1);
-                }
-                scaleAdjusted = true;
-            }
-            robot.arm.setArmPower(armAngle, armExtend);
-
-            if (xBtn) {
-                robot.arm.setClamp(1.0);
-            } else if (aBtn) {
-                robot.arm.setClamp(0.0);
-            }
 
             /*
             robot.armAngle.setPower(-gamepad2.left_stick_y);

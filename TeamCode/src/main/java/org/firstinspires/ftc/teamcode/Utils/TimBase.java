@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-public class RobotBase {
+public class TimBase {
     /* Public OpMode members. */
     public DcMotor leftFront    = null;
     public DcMotor rightFront   = null;
@@ -27,7 +27,7 @@ public class RobotBase {
 
 
     /* Constructor */
-    public RobotBase() {
+    public TimBase() {
 
     }
 

@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.Utils;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 public class driveTrain{
@@ -21,7 +20,7 @@ public class driveTrain{
         this.rb = rb;
     }
 
-    public driveTrain(RobotBase robot){
+    public driveTrain(TimBase robot){
         robot.leftFront  = lf;
         robot.rightFront = rf;
         robot.leftBack   = lb;
@@ -30,7 +29,7 @@ public class driveTrain{
     
     public void calculatePower (double x, double y, double turn) {
         //calculate the largest power to preserve ratios after being clipped
-        double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(turn), 1);
+        double denominator = Math.max(0, 1); //Math.abs(y) + Math.abs(x) + Math.abs(turn)
         //calculate individual wheel power
         lfPow = (y - x + turn) / denominator; //Left Front
         rfPow = (y + x - turn) / denominator; //Right Front

@@ -5,14 +5,13 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.Utils.RobotBase;
-import org.firstinspires.ftc.teamcode.Utils.driveTrain;
+import org.firstinspires.ftc.teamcode.Utils.TimBase;
 
 @Disabled
 @Autonomous(name="Forward", group="Auto")
 public class forward extends LinearOpMode {
 
-    RobotBase robot = new RobotBase();
+    TimBase robot = new TimBase();
     private ElapsedTime runtime = new ElapsedTime();
 
     @Override
