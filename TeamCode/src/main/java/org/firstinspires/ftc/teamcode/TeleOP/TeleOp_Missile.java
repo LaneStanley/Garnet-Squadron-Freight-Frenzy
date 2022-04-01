@@ -43,6 +43,7 @@ public class TeleOp_Missile extends LinearOpMode {
             if (!(uDpad || dDpad || lDpad || rDpad)) {
                 scaleAdjusted = false;
             }
+
             // arm adjust
             if (uDpad) {
                 if (!scaleAdjusted) {
