@@ -30,16 +30,16 @@ public class TeleOp_Missile extends LinearOpMode {
             double armAngle = -gamepad2.left_stick_y;
             double armExtend = gamepad2.right_stick_y;
 
-            boolean uDpad = gamepad2.dpad_up;
+            boolean uDpad = gamepad2.dpad_up; // arm scaling
             boolean dDpad = gamepad2.dpad_down;
 
-            boolean lDpad = gamepad2.dpad_left;
+            boolean lDpad = gamepad2.dpad_left; // extension scaling
             boolean rDpad = gamepad2.dpad_right;
 
-            boolean xBtn = gamepad2.x;
-            boolean aBtn = gamepad2.a;
+            boolean xBtn = gamepad2.x; // clamp
+            boolean aBtn = gamepad2.a; // release
 
-            if (!uDpad && !dDpad && !lDpad && !rDpad) {
+            if (!(uDpad || dDpad || lDpad || rDpad)) {
                 scaleAdjusted = false;
             }
 
@@ -56,15 +56,15 @@ public class TeleOp_Missile extends LinearOpMode {
                 scaleAdjusted = true;
             }
 
-            // clamp adjust
+            // extend adjust -- edited
             if (rDpad) {
                 if (!scaleAdjusted) {
-                    robot.arm.adjustArmScale(0.1);
+                    robot.arm.adjustExtendScale(0.1);
                 }
                 scaleAdjusted = true;
             } else if (lDpad) {
                 if (!scaleAdjusted) {
-                    robot.arm.adjustArmScale(-0.1);
+                    robot.arm.adjustExtendScale(-0.1);
                 }
                 scaleAdjusted = true;
             }
