@@ -19,32 +19,67 @@ public class BobTeleOp extends LinearOpMode {
         if (isStopRequested()) return; //stop execution if stopping is requested
 
         boolean scaleAdjusted = false;
+
+        //constants
+        double duckPower = 0.5;
+        double armPos = -0.627; // 0.45
+        double clampOpen = 1.0;
+        double clampClosed = .2;
+        double sensitivity = 0.0015;
+
+        double defaultDriveSensitivity = 0.5;
+        double defaultTurnSensitivity = 0.75;
+
+        double driveSensitivity;
+        double turnSensitivity;
+
+        double sprintSensitivity = 1;
+
         while (opModeIsActive()) {
             //Get Drive Inputs
             double x1 = gamepad1.left_stick_x;
             double y1 = -gamepad1.left_stick_y; // this is reversed! Y stick is reversed by default. We fix.
             double turn = gamepad1.right_stick_x;
 
-            robot.drive.setPower(x1, y1, turn);
+            // sprint
+            if (gamepad1.right_bumper) {
+                driveSensitivity = sprintSensitivity;
+                turnSensitivity = sprintSensitivity;
+            } else {
+                driveSensitivity = defaultDriveSensitivity;
+                turnSensitivity = defaultTurnSensitivity;
+            }
 
-            double armAngle = -gamepad2.left_stick_y;
-            double armExtend = gamepad2.right_stick_y;
+            robot.drive.setPower(x1 * driveSensitivity, y1 * driveSensitivity, turn * turnSensitivity);
 
-            boolean uDpad = gamepad2.dpad_up;
-            boolean dDpad = gamepad2.dpad_down;
+            boolean duckspinnerForward = gamepad1.a;
+            boolean duckspinnerBackward = gamepad1.y;
 
-            boolean lDpad = gamepad2.dpad_left;
-            boolean rDpad = gamepad2.dpad_right;
+            // -- robot control logic
 
-            boolean xBtn = gamepad2.x;
-            boolean aBtn = gamepad2.a;
+            // duck spinner
+            if (duckspinnerForward) {
+                robot.duckSpinner.setPower(duckPower);
+            }
+            else if (duckspinnerBackward) {
+                robot.duckSpinner.setPower(-duckPower);
+            } else {
+                robot.duckSpinner.setPower(0);
+            }
 
+            // servo for duck grabber
+            if (gamepad2.right_trigger > 0.3) {
+                robot.clamp.setPosition(clampClosed);
+            }
+            else if (gamepad2.left_trigger > 0.3) {
+                robot.clamp.setPosition(clampOpen);
+            }
 
-            /*
-            robot.armAngle.setPower(-gamepad2.left_stick_y);
-            robot.armExtender.setPower(gamepad2.right_stick_y);
-            */
+            // set arm position
+            armPos += -gamepad2.left_stick_y * sensitivity;
+            armPos = Math.max(-0.77, armPos);
 
+            robot.arm.setPower(armPos);
         }
     }
 }
